@@ -72,7 +72,7 @@ echo "Number in fasta file"
 grep -o ">" $dir/$1-significant1NEW.fasta | wc -l
 
 # CAP3
-#module load cap3/10.2011-1-intel-x86_64
+module load Miniconda3/4.7.10
 source activate jrodriguez 
 
 echo "CAP3 processing"
