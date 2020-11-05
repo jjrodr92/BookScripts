@@ -38,7 +38,8 @@ mkdir $results5
 mkdir $dir3
 
 ##Step1
-#module load gcc/6.4.0 diamond/0.9.22
+#module load gcc/6.4.0 diamond/0.9.22  
+#diamond v0.9.24.125 | by Benjamin Buchfink <buchfink@gmail.com>
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 
 # Blast
@@ -71,7 +72,7 @@ grep -A1 --no-group-separator -f $results3/$1-list1.txt $dir/Trinity_$1_oneline.
 echo "Number in fasta file"
 grep -o ">" $dir/$1-significant1NEW.fasta | wc -l
 
-# CAP3
+# CAP3 version 10.2011
 module load Miniconda3/4.7.10
 source activate jrodriguez 
 
@@ -128,12 +129,13 @@ paste $results5/$1-NCBItable1.blast $results5/list1.txt > $results5/$1-NCBItable
 cat <(head -1 header) $results5/$1-NCBItable2.blast > $results2/$1-NCBItablefinalNEW.blast
 
 
-# Mapping
+# Mapping Program: bwa (alignment via Burrows-Wheeler transformation) Version: 0.7.17-r1188
 module load BWA/0.7.17-GCC-8.2.0-2.31.1
 
 bwa index $dir/$1-significant2NEW.fasta
 bwa mem -t 40 $dir/$1-significant2NEW.fasta $dir1/$1_map.fastq.gz > $dir3/$1-significant2NEW.sam
 
+#Program: samtools (Tools for alignments in the SAM format) Version: 1.9 (using htslib 1.9)
 module load SAMtools/1.9-GCC-8.2.0-2.31.1
 
 samtools view -bS $dir3/$1-significant2NEW.sam  -o $dir3/$1-significant2NEW.bam
