@@ -2,10 +2,10 @@
 library(tidyverse)
 library(DT)
 library(fs)
-setwd("D:/BIo/PMS_analysis/PMS_test4") 
+setwd("your_workig_path") 
 
 # Read data
-filenames <- list.files(".", recursive = TRUE, pattern="^PMS.*-Virus-reads\\.csv")
+filenames <- list.files(".", recursive = TRUE, pattern="SampleID*-Virus-reads\\.csv")
 list.df <- map(filenames, read_csv, col_types = cols("TRINITY" = col_character()))
 
 # Combine virus names
@@ -21,15 +21,15 @@ df <- list.df %>%
 #cahge 
 df$Final_name <-gsub("-Virus-reads.csv", "_map2.fasta", df$Final_name)
 df$Name <-gsub("-Virus-reads.csv", "_map2.fasta", df$Name)
-df$Final_name <-gsub("PMS-", "PMS", df$Final_name)
-df$Name <-gsub("PMS-", "PMS", df$Name)
+df$Final_name <-gsub("SampleID-", "SampleID", df$Final_name)
+df$Name <-gsub("SampleID-", "SampleID", df$Name)
 
 # Save data
 write_csv(df, "allVOI.csv")
 
 # Read fasta sequences
 library(Biostrings)
-sequences <- list.files(".", recursive = TRUE, pattern="^PMS.*_map2.fasta")
+sequences <- list.files(".", recursive = TRUE, pattern="sampleID-significant2.fasta")
 list.df2 <- map(sequences, readDNAStringSet)
 
 df2 <- do.call(c, list.df2)
@@ -54,8 +54,5 @@ names(df2) <- tmp$Final_name
 
 writeXStringSet(df2, "allVOI.fasta")
 
-# # Check the correct numbers
-r <- 1:17
-for (i in 1:17){
-  r[i] <- nrow(list.df[[i]]) == length(list.df2[[i]])}
+
 
