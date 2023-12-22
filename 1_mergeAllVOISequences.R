@@ -2,7 +2,7 @@
 library(tidyverse)
 library(DT)
 library(fs)
-setwd("your_workig_path") 
+setwd("your_workig_directory") 
 
 # Read data
 filenames <- list.files(".", recursive = TRUE, pattern="SampleID*-Virus-reads\\.csv")
