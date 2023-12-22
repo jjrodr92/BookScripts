@@ -4,7 +4,7 @@ library(DT)
 library(fs)
 library(ggthemes)
 library(testthat)
-setwd("D:/BIo/PMS_analysis/PMS_test4/")
+setwd("your_working_directory")
 # Read data
 filenames <- dir_ls(".", type = "file", regexp ="*sort\\.tab")
 list.df <- map(filenames, read_delim, delim = "\t", skip = 1, col_names = FALSE)
@@ -13,23 +13,23 @@ list.df <- map(filenames, read_delim, delim = "\t", skip = 1, col_names = FALSE)
 df <- do.call(rbind, list.df)     
 
 # Create final table
-#' Create a table with colnames = Pools, row = contigs, values = number of reads
-#' Summarise all the reads together
+#Create a table with colnames = Pools, row = contigs, values = number of reads
+#Summarise all the reads together
 
-#' Summarise all the reads together
+#Summarise all the reads together
 df1 <- df %>% 
-  mutate(X5 = rep(str_extract(filenames, "PMS*\\d+"),
+  mutate(X5 = rep(str_extract(filenames, "SampleID*\\d+"),
                   sapply(list.df, nrow))) %>%
   select(Contig = X1,
          Reads = X3,
          Pool = X5) %>%
   spread(Pool, Reads) %>%
-  mutate(AboveThr500 = rowSums(select(., `PMS1`, `PMS2`:`PMS8`, `PMS10`:`PMS18`) > 500)) %>%
+  mutate(AboveThr500 = rowSums(select(., `SampleID1`, `SampleID2`:`SampleID3`) > 500)) %>%
   arrange(desc(AboveThr500)) %>%
   mutate(Virus = str_replace(Contig, ".*_i\\d+_(.*)_len=.*|.*Contig\\d+_(.*)_len=.*", "\\1\\2"),
          Virus = str_replace_all(Virus, "-", " "),
          Length = str_replace(Contig, ".*len=(\\d*)", "\\1")) %>%
-  select(Virus, Length, AboveThr500, `PMS1`, `PMS2`:`PMS8`, `PMS10`:`PMS18`, Contig)
+  select(Virus, Length, AboveThr500, `SampleID1`, `SampleID2`:`SampleID3`, Contig)
 
 # Test
 test_dir("tests/testthat/")
@@ -79,15 +79,15 @@ save(df4, file = "allVOI_ReadMapped.RData")
 ###############################################################################
 # Add fasta sequence
 library("Biostrings")
-setwd("D:/BIo/PMS_analysis/PMS_test3")
+setwd("your_working_directory")
 fastaFile <- readDNAStringSet("uniViruses1.fasta")
 Contig = names(fastaFile)
 Sequence = paste(fastaFile)
 y <- data.frame(Contig, Sequence)
 
-y$Contig <-gsub("_map2.fasta", "", y$Contig)
+y$Contig <-gsub("sampleID-significant2.fasta", "", y$Contig)
 
-df1$Contig <-gsub("_map2.fasta", "", df1$Contig)
+df1$Contig <-gsub("sampleID-significant2.fasta", "", df1$Contig)
 
 df1$Sequence <- y$Sequence[match(df1$Contig, y$Contig)]
 
