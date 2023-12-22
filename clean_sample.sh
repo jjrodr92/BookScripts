@@ -2,7 +2,7 @@
 resources="./bbmap-39.01-0/resources/"
 
 #Sket
-sendsketch.sh in=./sampleID/sampleID_1.fq.gz out=./sampleID/sketch_1.txt reads=200000 fname=sampleID_*_1.fq.gz minprob=0.2 samplerate=1.0 merge printname0=f records=20 overwrite=true color=false depth depth2 unique2 volume sortbyvolume contam2=genus nt ow
+sendsketch.sh in=./sampleID/sampleID_1.fastq.gz out=./sampleID/sketch_1.txt reads=200000 fname=sampleID.fastq.gz minprob=0.2 samplerate=1.0 merge printname0=f records=20 overwrite=true color=false depth depth2 unique2 volume sortbyvolume contam2=genus nt ow
 sendsketch.sh in=./sampleID/sampleID_2.fastq.gz out=./sampleID/sketch_2.txt reads=200000 fname=sampleID.fastq.gz minprob=0.2 samplerate=1.0 merge printname0=f records=20 overwrite=true color=false depth depth2 unique2 volume sortbyvolume contam2=genus nt ow
 sendsketch.sh in=./sampleID/sampleID_1.fastq.gz out=./sampleID/sketch_1.txt reads=200000 fname=sampleID.fastq.gz minprob=0.2 samplerate=1.0 merge printname0=f records=20 overwrite=true color=false depth depth2 unique2 volume sortbyvolume contam2=genus refseq append
 sendsketch.sh in=./sampleID/sampleID_2.fastq.gz out=./sampleID/sketch_2.txt reads=200000 fname=sampleID.fastq.gz minprob=0.2 samplerate=1.0 merge printname0=f records=20 overwrite=true color=false depth depth2 unique2 volume sortbyvolume contam2=genus refseq append
