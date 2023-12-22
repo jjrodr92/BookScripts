@@ -3,7 +3,7 @@ library(tidyverse)
 library(ggthemes)
 library(cowplot)
 options(width = 220)
-setwd("D:/BIo/PMS_analysis/PMS_test4")
+setwd("your_workig_directory")
 # Read data
 df <- read_delim("allVOI_nucl.tab", delim = "\t", col_names = FALSE)
 names(df) <- c("query", "subject", "identity", "alignment_length", "mismatches", "gaps", "q.start", "q.end", "s.start", "s.end", "evalue", "bit score")
@@ -18,12 +18,12 @@ id <- 90
 #' the 90% of the contig lenght.
 al_id <- 90
 df1 <- df %>%
-  mutate(qPool = str_replace(query, "(PMS*\\d+).*", "\\1")) %>%
+  mutate(qPool = str_replace(query, "(SampleID*\\d+).*", "\\1")) %>%
   mutate(qTrinity = str_replace(query, ".*(TRINITY_\\w*_c\\d_g+\\d_i+\\d+|Contig\\d+).*", "\\1")) %>%
   mutate(qVirus = str_replace(query, ".*_i\\d+_(.*)_len=.*|.*Contig\\d+_(.*)_len=.*", "\\1\\2"),
          qVirus = str_replace_all(qVirus, "-", " ")) %>%
   mutate(qLength = str_replace(query, ".*len=(\\d*)", "\\1")) %>%
-  mutate(sPool = str_replace(subject, "(PMS*\\d+).*", "\\1")) %>%
+  mutate(sPool = str_replace(subject, "(SampleID*\\d+).*", "\\1")) %>%
   mutate(sTrinity = str_replace(subject, ".*(TRINITY_\\w*_c\\d+_g\\d+_i\\d+|Contig\\d+).*", "\\1")) %>%
   mutate(sVirus = str_replace(subject, ".*_i\\d_(.*)_len=.*|.*Contig\\d+_(.*)_len=.*", "\\1\\2"),
          sVirus = str_replace_all(sVirus, "-", " ")) %>%
