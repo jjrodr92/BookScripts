@@ -31,26 +31,18 @@ write_csv(df, "allVOI.csv")
 library(Biostrings)
 sequences <- list.files(".", recursive = TRUE, pattern="sampleID-significant2.fasta")
 list.df2 <- map(sequences, readDNAStringSet)
-
 df2 <- do.call(c, list.df2)
-
 names(df2) <- paste(rep(gsub("\\/.*", "", sequences), sapply(list.df2, length)), gsub(" len=.*", "", names(df2)), sep = "_")
-
 tmp <- tibble(tmp = names(df2))
-
 tmp <- tmp %>% left_join(df %>% select(Final_name, Name), by = c("tmp" = "Name"))
 names(df2) == tmp$tmp
 names(df2) <- tmp$Final_name
 
-
-
-
-#tmp <- paste(rep(gsub("\\/.*", "", sequences), sapply(list.df2, length)), gsub(" len=.*", "", names(df2)), sep = "_")
-#tmp2 <- tibble(tmp)
-#names(df2) <- tmp
-#df2 <- df2[order(df2@ranges@NAMES),]
-#names(df2) <- df$Final_name
-
+      #tmp <- paste(rep(gsub("\\/.*", "", sequences), sapply(list.df2, length)), gsub(" len=.*", "", names(df2)), sep = "_")
+      #tmp2 <- tibble(tmp)
+      #names(df2) <- tmp
+      #df2 <- df2[order(df2@ranges@NAMES),]
+      #names(df2) <- df$Final_name
 
 writeXStringSet(df2, "allVOI.fasta")
 
