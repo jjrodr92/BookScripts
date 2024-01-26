@@ -1,3 +1,6 @@
+#Install R packages (only run fisrt time)
+install.packages(c("tidyverse", "DT", "fs", "ggthemes", "cowplot", "network", "ggraph", "tidygraph", "BiocManager"))
+BiocManager::install("Biostrings")
 # Library
 library(tidyverse)
 library(DT)
