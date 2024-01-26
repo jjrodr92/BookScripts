@@ -1,5 +1,5 @@
 library("Biostrings")
-setwd("D:/BIo/PMS_analysis/PMS_test4/tables")
+setwd("your_workig_directory/tables")
 
 df1 = read_csv ("hittablefinal.csv")
 
